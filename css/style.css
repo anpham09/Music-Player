@@ -1,0 +1,76 @@
+body {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #7FFF00;
+    background-color: #50C878;
+    font-family:fantasy;
+}
+h1{
+    font-weight: bolder;
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.music_player{
+    width: 350px;
+    height: 550px;
+    border-radius: 20px;
+    background-color: #ffd90054;
+    box-shadow: 30px 40px 100px #ffd900e1;
+    padding: 30px;
+    overflow: hidden;
+
+}
+
+.artist, h1 {
+    text-align: center;
+    text-transform: capitalize;
+}
+
+.artist {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.disk{
+    position: relative;
+    display: block;
+    margin: 40px auto;
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    background-color: #4b8450;
+    background-image: url(../cover_images/skyfall.jpeg);
+    background-size: cover;
+    box-shadow: 0 0 0 10px #50c87874;
+}
+.disk::before{
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    background-color: #50c878c2;
+}
+
+.slider{
+    width: 100%;
+    position: relative;
+}
+
+.time_bar {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 9px;
+    border-radius: 10px;
+    background-color: #A2EAA9;
+    box-shadow: 2px 2px 2px 2px #54B860;
+    cursor:vertical-text;
+    cursor: url("../icons/star_cursor.png") 16 16, auto;
+}
