@@ -63,6 +63,30 @@ h1{
     width: 100%;
     position: relative;
 }
+.slide::before, .slide::after {
+    content: "✵";
+    position: absolute;
+    left: 50%;
+    top: 0;
+    color: gold;
+    font-size: 14px;
+    pointer-events: none;
+    animation: sparkle 1.5s infinite;
+}
+.slider::after {
+    animation-delay: 0.75s;
+}
+
+@keyframes sparkle {
+    from {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-40px) rotate(90deg) scale(0.3);
+    }
+}
 
 .time_bar {
     -webkit-appearance: none;
@@ -71,6 +95,14 @@ h1{
     border-radius: 10px;
     background-color: #A2EAA9;
     box-shadow: 2px 2px 2px 2px #54B860;
-    cursor:vertical-text;
-    cursor: url("../icons/star_cursor.png") 16 16, auto;
+    cursor:cell;
+}
+.time_bar::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 32px;
+    height: 32px;
+    background: transparent url(../icons/star_cursor.jpeg) center no-repeat;
+    background-size: contain;
+    background-position: center;
+    border: none;
 }
