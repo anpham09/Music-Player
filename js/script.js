@@ -8,7 +8,7 @@ const disk = document.querySelector('.disk');
 const currentTime = document.querySelector('.current_time');
 const songTime = document.querySelector('.song_time');
 const playButton = document.querySelector('.play_button');
-const forwardButton = document.querySelector('forward_button');
+const forwardButton = document.querySelector('.forward_button');
 const backwardButton = document.querySelector('.backward_button');
 
 
@@ -25,12 +25,79 @@ window.addEventListener("resize", moveStars);
 moveStars();
 
 let currentMusic = 0;
-playButton.addEventListener('click', () =>{
+playButton.addEventListener('click', function() {
+    if (playButton.className.includes('pause')){
+        music.play();
+    } else {
+        music.pause();
+    }
     playButton.classList.toggle('pause');
     disk.classList.toggle('play');
+});
+
+const setMusic = function (i) {
+    timeBar.value = 0;
+    let song = songs[i];
+    currentMusic = 1; //see how to make this random everytime
+    music.src = song.path;
+
+    songName.innerHTML = song.name;
+    artist.innerHTML = song.artist;
+    disk.style.backgroundImage = `url('${song.cover}')`;
+
+    currentTime.innerHTML =  '00:00';
+    setTimeout(() => {
+        timeBar.max = music.duration;
+        console.log(music.duration);
+        songTime.innerHTML = formatTime(music.duration);
+    }, 300);
+};
+setMusic(0);
+
+function formatTime(time){
+    let min = Math.floor(time / 60);
+    if(min < 10){
+        min = `0${min}`;
+    }
+    let sec = Math.floor(time % 60);
+    if(sec < 10){
+        sec = `0${sec}`;
+    }
+    return `${min} : ${sec}`;
+}
+
+setInterval(function() {
+    timeBar.value = music.currentTime;
+    currentTime.innerHTML = formatTime(music.currentTime);
+    if (Math.floor(music.currentTime) == Math.floor(timeBar.max)){
+        forwardButton.click();
+    }
+}, 500);
+
+timeBar.addEventListener('change', ()=>{
+    music.currentTime = timeBar.value;
 })
 
-const setMusic = (i) => {
-    timeBar.value = 0;
-    let song = songs(i);
+function playMusic(){
+    playButton.classList.remove('pause');
+    disk.classList.add('play');
 }
+
+forwardButton.addEventListener('click', function(){
+    if(currentMusic >= songs.length -1){
+        currentMusic = 0;
+    } else{
+        currentMusic++;
+    }
+    setMusic(currentMusic);
+    playButton.click();
+});
+backwardButton.addEventListener('click', function(){
+    if(currentMusic <= 0){
+        currentMusic = songs.length -1;
+    } else{
+        currentMusic--;
+    }
+    setMusic(currentMusic);
+    playMusic();
+});
