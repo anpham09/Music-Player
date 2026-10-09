@@ -16,7 +16,7 @@ h1{
 
 .music_player{
     width: 350px;
-    height: 550px;
+    height: 600px;
     border-radius: 20px;
     background-color: #ffd90054;
     box-shadow: 30px 40px 100px #ffd900e1;
@@ -43,10 +43,13 @@ h1{
     height: 280px;
     border-radius: 50%;
     background-color: #4b8450;
-    background-image: url(../cover_images/skyfall.jpeg);
+    /* background-image: url(../cover_images/radio.jpeg); */
     background-size: cover;
     box-shadow: 0 0 0 10px #50c87874;
+    animation: rotate 10s linear infinite;
+    animation-play-state: paused;
 }
+
 .disk::before{
     content: '';
     position: absolute;
@@ -114,7 +117,7 @@ h1{
     background-position: center;
     border: none;
 
-    box-shadow: -416px 0 0 400px;
+    box-shadow: -416px 0 0 400px #4b8450;
     clip-path: polygon(
         -800px 11.5px,
         0 11.5px,
@@ -154,34 +157,47 @@ h1{
 }
 
 .controls {
-    width: 100%;
+    width: 60%;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     margin: auto;
     margin-top: 20px;
 }
 
+.play_toggle{
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+}
 .play_button {
-    position: relative;
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    background: #50C878;
-    cursor: pointer;
-    border: 1px 1px 1px 1px #1a4528;
+    background-color:#50C878;
+    border: 1px solid #1a4528;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor:grab;
+}
+.play_button::before{
+    content: "♥";
+    font-size: 30px;
+    line-height: 1;
+    transform: translateY(5px) scale(1.2);
+}
+.play_toggle:checked + .play_button::before{
+    content: "♡";
+}
+.play_toggle:focus-visible + .play_button {
+    outline: 2px solid #1a4528;
+    outline-offset: 4px;
 }
 
-.play_button span{
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    left: 40%;
-    transition: .5s;
-}
-
-.play_button.pause{
-    animation: pulse 2s linear infinite;
+.music_player:has(.play_toggle:checked) .disk{
+    animation-play-state: running;
 }
 
 @keyframes pulse{
@@ -199,5 +215,20 @@ h1{
 .button{
     width: 40px;
     height: 40px;
-    background-color: 
+    background-color: #50C878;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor:help;
 }
+
+@keyframes rotate{
+    0%{
+        transform: rotate(0);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}
+
