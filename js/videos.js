@@ -18,6 +18,8 @@ const uploadMessage = document.querySelector(".upload_message");
 
 let videos = [];
 let playingId = "";
+let videoDatabase = null;
+let cardUrls = [];
 
 try {
     videos = JSON.parse(localStorage.getItem("ans_videos")) || [];
@@ -26,10 +28,34 @@ try {
 }
 
 function saveVideos(){
+    const youtubeVideos =  [];
+    const uploadedVideos = [];
+
+    for(let i = 0; i < videos.length; i++){
+        if(videos[i].file){
+            uploadedVideos.push(videos[i]);
+        } else {
+            youtubeVideos.push(videos[i]);
+        }
+    }
     try{
-        localStorage.setItem("ans_videos", JSON.stringify(videos));
+        localStorage.setItem("ans_videos", JSON.stringify(youtubeVideos));
     } catch(error){
         message.textContent = "Your browser can not save this list.";
+    }
+    if(videoDatabase){
+        try{
+            const transaction = videoDatabase.transaction("uploads", "readwrite");
+            const storage = transaction.objectStore("uploads");
+
+            storage.put(uploadedVideos, "video_list");
+
+            transaction.onabort = function(){
+                uploadMessage.textContent = "Can not save uploaded videos. Browser storage may be full."
+            };
+        }catch(error){
+            uploadMessage.textContent = "Can not save uploaded videos.";
+        }
     }
 }
 
@@ -60,7 +86,35 @@ function getVideoId(link){
     return null;
 }
 
-function watchVideo(id,title){
+async function watchVideo(id,title, file){
+    if(file){
+        try{
+            if(document.pictureInPictureElement == localVideo){
+                await document.exitPictureInPicture();
+            }
+            localVideo.pause();
+            if(localVideoUrl){
+                URL.revokeObjectURL(localVideoUrl);
+            }
+
+            currentUpload = file;
+            localVideoUrl = URL.createObjectURL(file);
+            localVideo.src = localVideoUrl;
+            localPlayer.hidden = false;
+            pipButton.disabled = true;
+            uploadMessage.textContent = title;
+            favoritePicker.open = false;
+
+            localPlayer.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+        } catch(error){
+            uploadMessage.textContent = "Close picture in picture and try again.";
+        }
+        return;
+    }
+
     if(!/^[a-zA-Z0-9_-]{11}$/.test(id)){
         message.textContent = "Put your video ID in this favorite button first!";
         return;
@@ -79,6 +133,10 @@ function watchVideo(id,title){
 
 
 function showVideos(){
+    for(let i = 0; i < cardUrls.length; i++){
+        URL.revokeObjectURL(cardUrls[i]);
+    }
+    cardUrls = [];
     watchList.replaceChildren();
     favoriteList.replaceChildren();
 
@@ -86,12 +144,33 @@ function showVideos(){
 
     for(let i=0; i < videos.length; i++){
         const video = videos[i];
+        if(video.file && !(video.file instanceof Blob)){
+            continue;
+        }
         const card = videoCard.content.firstElementChild.cloneNode(true);
+        const thumbnail = card.querySelector("img");
 
         card.querySelector(".video_title").textContent = video.title;
-        card.querySelector("img").src = "https://i.ytimg.com/vi/" +video.id + "/hqdefault.jpg";
+        
+        if(video.file){
+            thumbnail.remove();
+
+            const player = document.createElement("video");
+            const fileUrl = URL.createObjectURL(video.file);
+
+            player.src = fileUrl;
+            player.controls = true;
+            player.playsInline = true;
+            player.preload = "metadata";
+            player.className = "card_video";
+
+            cardUrls.push(fileUrl);
+            card.prepend(player);
+        } else {
+            thumbnail.src = "https://i.ytimg.com/vi/" + video.id + "/hqdefault.jpg";
+        }
         card.querySelector(".watch_video").addEventListener("click", function(){
-            watchVideo(video.id, video.title);
+            watchVideo(video.id, video.title, video.file);
         });
 
         const favoriteButton = card.querySelector(".save_favorite");
@@ -108,6 +187,19 @@ function showVideos(){
                 videoFrame.removeAttribute("src");
                 videoScreen.hidden = true;
                 playingId = "";
+            }
+            if(video.file && currentUpload == video.file){
+                localVideo.pause();
+                localVideo.removeAttribute("src");
+                localVideo.load();
+                localPlayer.hidden = true;
+                pipButton.disabled = true;
+                videoFile.value = "";
+                uploadMessage.textContent = "";
+
+                URL.revokeObjectURL(localVideoUrl);
+                localVideoUrl = "";
+                currentUpload = null;
             }
             videos.splice(i, 1);
             saveVideos();
@@ -166,6 +258,7 @@ addForm.addEventListener("submit", async function(event){
 });
 
 let localVideoUrl = "";
+let currentUpload = null;
 
 pipButton.disabled = true;
 
@@ -185,6 +278,16 @@ videoFile.addEventListener("change", async function(){
         }
         localVideoUrl = URL.createObjectURL(file);
         localVideo.src = localVideoUrl;
+        currentUpload = file;
+
+        videos.push({
+            title: file.name,
+            file: file,
+            favorite: false
+        });
+        saveVideos();
+        showVideos();
+
         localPlayer.hidden = false;
         pipButton.disabled = true;
         uploadMessage.textContent = "";
@@ -220,10 +323,49 @@ localVideo.addEventListener("enterpictureinpicture", function(){
 });
 
 localVideo.addEventListener("leavepictureinpicture", function(){
-    pipButton.textContent = "Picture in picture";
+    pipButton.textContent = "Pic in pic";
 });
 
 localVideo.addEventListener("error", function(){
     pipButton.disabled = true;
     uploadMessage.textContent = "This video can not play. Try an MP4 file encoded with H.264.";
 });
+
+videoFile.disabled = true;
+addButton.disabled = true;
+const databaseRequest = indexedDB.open("ans_uploaded_videos", 2);
+
+databaseRequest.onupgradeneeded = function(){
+    const database = databaseRequest.result;
+    if(!database.objectStoreNames.contains("uploads")){
+        database.createObjectStore("uploads");
+    }
+};
+databaseRequest.onsuccess = function(){
+    videoDatabase = databaseRequest.result;
+
+    const transaction = videoDatabase.transaction("uploads", "readonly");
+    const storage = transaction.objectStore("uploads");
+    const request = storage.get("video_list");
+
+    request.onsuccess = function(){
+        const savedVideos = request.result || [];
+        for(let i = 0; i < savedVideos.length; i++){
+            videos.push(savedVideos[i]);
+        }
+
+        showVideos();
+        videoFile.disabled = false;
+        addButton.disabled = false;
+        uploadMessage.textContent = "";
+    };
+    request.onerror = function(){
+        uploadMessage.textContent = "Can not load uploaded videos. Please reload the page.";
+        addButton.disabled = false;
+    };
+};
+
+databaseRequest.onerror = function(){
+    uploadMessage.textContent = "Can not open video storage in this browser.";
+    addButton.disabled = false;
+}

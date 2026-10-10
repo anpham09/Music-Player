@@ -22,9 +22,11 @@ All of my favorite songs are not on a same music platform, and the platforms tha
 
 
 - If possible, I want to let it has mini screen like the way YouTube turns into small screen when I cliked the home button
+- right now when there are multiple videos, its hiding my heading, fix that
 <!-- -upload my own video input -->
 - make input add new songs (by audio.mp3 file or can extract from audio of video file + title name + artist name), and can remove the previous added songs
 
 - make a version for iphone 13 (for my personal use hehe)
 
+- make it custom for the user's name (instead of An's Fav Vids)
 

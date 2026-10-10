@@ -24,7 +24,7 @@ h1 {
 }
 h2{
     font-size: 22px;
-    color: #A2EAA9;
+    color:#093415;
 }
 
 .video_screen{
@@ -228,4 +228,13 @@ button{
 
 .upload_video [hidden]{
     display: none;
+}
+
+.card_video {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16/9;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    background-color: black;
 }
