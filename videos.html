@@ -36,6 +36,7 @@
         <div class="video_screen" hidden>
             <h2 class="playing_title"></h2>
 
+            <button class="mini_button" type="button" aria-pressed="false">Mini Screen</button>
             <iframe width="560" height="315" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
             </iframe>
 
@@ -53,6 +54,18 @@
                 <button type="submit">Add</button>
             </div>
         </form>
+
+        <div class="upload_video">
+            <label for="video_file">Or choose your own video:</label>
+            <input type="file" id="video_file" accept="video/*">
+
+            <div class="local_player" hidden>
+                <video class="local_video" controls playsinline></video>
+
+                <button class="pip_button" type="button">Pic in pic</button>
+            </div>
+            <p class="upload_message" role="status"></p>
+        </div>
         
         <p class="message" role="status"></p>
     </div>

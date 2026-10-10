@@ -10,6 +10,11 @@ const videoCard = document.querySelector("#video_card");
 const addForm = document.querySelector(".add_video");
 const videoInput = document.querySelector("#video_link");
 const addButton = document.querySelector(".add_video button");
+const videoFile = document.querySelector("#video_file");
+const localPlayer = document.querySelector(".local_player");
+const localVideo = document.querySelector(".local_video");
+const pipButton = document.querySelector(".pip_button");
+const uploadMessage = document.querySelector(".upload_message");
 
 let videos = [];
 let playingId = "";
@@ -158,4 +163,67 @@ addForm.addEventListener("submit", async function(event){
     } finally {
         addButton.disabled = false;
     }
+});
+
+let localVideoUrl = "";
+
+pipButton.disabled = true;
+
+videoFile.addEventListener("change", async function(){
+    const file = videoFile.files[0];
+
+    if(!file){return;}
+
+    try {
+        if(document.pictureInPictureElement == localVideo){
+            await document.exitPictureInPicture();
+        }
+        localVideo.pause();
+
+        if(localVideoUrl){
+            URL.revokeObjectURL(localVideoUrl);
+        }
+        localVideoUrl = URL.createObjectURL(file);
+        localVideo.src = localVideoUrl;
+        localPlayer.hidden = false;
+        pipButton.disabled = true;
+        uploadMessage.textContent = "";
+    } catch(error){
+        uploadMessage.textContent = "Close picture in picture and choose the file again.";
+    }
+});
+
+localVideo.addEventListener("loadeddata", function(){
+    if(document.pictureInPictureEnabled && localVideo.requestPictureInPicture){
+        pipButton.disabled = false;
+    } else {
+        uploadMessage.textContent = "This browser does not support this picture-in-picture button.";
+    }
+});
+
+pipButton.addEventListener("click", async function() {
+    try{
+        if(document.pictureInPictureElement == localVideo){
+            await document.exitPictureInPicture();
+
+        } else {
+            await localVideo.requestPictureInPicture();
+        }
+        uploadMessage.textContent = "";
+    } catch(error) {
+        uploadMessage.textContent = "Can not open picture in picture. Try playing the video first.";
+    }
+});
+
+localVideo.addEventListener("enterpictureinpicture", function(){
+    pipButton.textContent = "Back to page";
+});
+
+localVideo.addEventListener("leavepictureinpicture", function(){
+    pipButton.textContent = "Picture in picture";
+});
+
+localVideo.addEventListener("error", function(){
+    pipButton.disabled = true;
+    uploadMessage.textContent = "This video can not play. Try an MP4 file encoded with H.264.";
 });

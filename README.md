@@ -17,11 +17,13 @@ All of my favorite songs are not on a same music platform, and the platforms tha
 <!-- -!! has the button to put the current song on loop, when clicked, that song is repeated until that button is clicked again to unloop -->
 
 <!-- - make the song random everytime refresh the page -->
-- I want the website to have 2 tabs: 1. Songs with this current one, 2. shows with my fav shows from YouTube using video frame
-- fix the favorites vids list, make it identical to the songs one
+<!-- - I want the website to have 2 tabs: 1. Songs with this current one, 2. shows with my fav shows from YouTube using video frame -->
+<!-- - fix the favorites vids list, make it identical to the songs one -->
 
 
-- If possible, can I let it has mini screen like the way YouTube turns into small screen when I cliked the home button (it has thumbnails for each video, kinda like a gallery)
+- If possible, I want to let it has mini screen like the way YouTube turns into small screen when I cliked the home button
+<!-- -upload my own video input -->
+- make input add new songs (by audio.mp3 file or can extract from audio of video file + title name + artist name), and can remove the previous added songs
 
 - make a version for iphone 13 (for my personal use hehe)
 

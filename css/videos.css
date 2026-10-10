@@ -7,7 +7,7 @@
     border-radius: 20px;
     background-color: #ffd90054;
     box-shadow: 30px 40px 100px #ffd900e1;
-    margin-top: 220px;
+    margin-top: 380px;
 }
 
 .heading {
@@ -24,6 +24,7 @@ h1 {
 }
 h2{
     font-size: 22px;
+    color: #A2EAA9;
 }
 
 .video_screen{
@@ -115,10 +116,6 @@ h2{
 .favorite_picker summary::-webkit-details-marker{
     display: none;
 }
-.favorite_picker summary img{
-    display: block;
-    width: 90px;
-}
 .favorite_panel{
     position: absolute;
     right: 0;
@@ -177,9 +174,58 @@ button{
     font-weight: bold;
 }
 
-.videos_bottom_circles{
-    margin-bottom: -16%;
-}
 .videos_top_circles{
     margin-bottom: -5%;
+}
+
+.upload_video{
+    margin-top: 25px;
+}
+.upload_video label {
+    display: block;
+    margin-bottom: 10px;
+}
+.upload_video input {
+    max-width: 100%;
+    font: inherit;
+}
+.upload_video input::file-selector-button, .pip_button{
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    background-color: #50C878;
+    color: #172a01;
+    font: inherit;
+    cursor:cell;
+}
+
+.local_player{
+    margin-top: 15px;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: #093415;
+}
+
+.local_video {
+    display: block;
+    width: 100%;
+    max-height: 450px;
+    background-color:#0a1200;
+    border-radius: 8px;
+}
+
+.pip_button{
+    margin-top: 12px;
+}
+.pip_button:disabled {
+    opacity: 0.5;
+    cursor: default;
+}
+
+.upload_message {
+    margin-top: 10px;
+}
+
+.upload_video [hidden]{
+    display: none;
 }
