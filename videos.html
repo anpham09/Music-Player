@@ -23,13 +23,6 @@
 
         <div class="favorite_panel">
             <h2>My Favorites</h2>
-            <div class="first_favorites">
-                <button type="button" data-id="video_1">First vid</button>
-                <button type="button" data-id="video_2">Second vid</button>
-                <button type="button" data-id="video_3">Third vid</button>
-                <button type="button" data-id="video_4">Fourth vid</button>
-
-            </div>
             <div class="favorite_list"></div>
         </div>
     </details>
@@ -43,8 +36,6 @@
         <div class="video_screen" hidden>
             <h2 class="playing_title"></h2>
 
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/_rBVE2w8tY0?si=6ms8gFRohx29o_Lj" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
-            </iframe>
 
         </div>
         <h2>Watch Later</h2>
@@ -62,13 +53,9 @@
         </form>
         
         <p class="message" role="status"></p>
-        <div class="heading">
-            <span class="decorate_circles videos_bottom_circles">+</span>
-            <span class="decorate_circles videos_bottom_circles">+</span>
-        </div>
     </div>
 
-    <div id="video_card">
+    <template id="video_card">
         <div class="video_card">
             <button class="watch_video" type="button">
                 <img src="" alt="">
@@ -77,12 +64,12 @@
 
             <div class="video_actions">
                 <button class="save_favorite" type="button">Favorite</button>
-                <button class="remove_favorite" type="button">Remove</button>
+                <button class="remove_video" type="button">Remove</button>
 
             </div>
         </div>
         
-    </div>
+    </template>
     
 
     <script src="./js/videos.js"></script>

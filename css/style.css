@@ -19,7 +19,6 @@ body {
 .tabs_container .tabs{
     display: flex;
     width: 100%;
-    /* gap: 15px; */
     justify-content: space-around;
     background-color: #ffd90054;
     box-shadow: 30px 40px 100px #ffd900e1;
@@ -58,6 +57,7 @@ body {
     text-align: center;
     font-size: 36px;
     margin: 0;
+    text-decoration: underline;
 }
 h1{
     font-weight: bolder;
@@ -319,7 +319,7 @@ h1{
     padding: 0;
     border: none;
     background: none;
-    cursor: pointer;
+    cursor:cell;
 }
 .cassette_button img {
     display: block;
