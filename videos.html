@@ -15,9 +15,72 @@
             <a href="./videos.html" class="active" aria-current="page">Videos</a>
         </nav>
     </div>
+
+    <details class="favorite_picker song_picker">
+        <summary class="cassette_button">Favorites
+            <img src="./icons/palee-removebg-preview.png" alt="">
+        </summary>
+
+        <div class="favorite_panel">
+            <h2>My Favorites</h2>
+            <div class="first_favorites">
+                <button type="button" data-id="video_1">First vid</button>
+                <button type="button" data-id="video_2">Second vid</button>
+                <button type="button" data-id="video_3">Third vid</button>
+                <button type="button" data-id="video_4">Fourth vid</button>
+
+            </div>
+            <div class="favorite_list"></div>
+        </div>
+    </details>
+
+    <div class="videos_page">
+        <div class="heading">
+            <span class="decorate_circles">+</span>
+            <h1>An's Videos</h1>
+            <span class="decorate_circles">+</span>
+        </div>
+        <div class="video_screen" hidden>
+            <h2 class="playing_title"></h2>
+
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/_rBVE2w8tY0?si=6ms8gFRohx29o_Lj" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+            </iframe>
+
+        </div>
+        <h2>Watch Later</h2>
+        <p class="empty_message">No videos yet. Add one below!</p>
+        <div class="watch_list"></div>
+
+        <form action="" class="add_video">
+            <label for="video_link">Something to watch later?</label>
+            <div class="input_row">
+                <input type="url" id="video_link"
+                placeholder="Paste a YouTube link" required>
+                <button type="submit">Add</button>
+            </div>
+        </form>
+        <p class="message" role="status"></p>
+        
+    </div>
+
+    <div id="video_card">
+        <div class="video_card">
+            <button class="watch_video" type="button">
+                <img src="" alt="">
+                <span class="video_title"></span>
+            </button>
+
+            <div class="video_actions">
+                <button class="save_favorite" type="button">Favorite</button>
+                <button class="remove_favorite" type="button">Remove</button>
+
+            </div>
+        </div>
+        
+    </div>
     
 
-    
+    <script src="./js/videos.js"></script>
 
 </body>
 </html>

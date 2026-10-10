@@ -1,0 +1,131 @@
+.videos_page{
+    width: 700px;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 25px;
+    border-radius: 20px;
+    background-color: #ffd90054;
+    box-shadow: 30px 40px 100px #ffd900e1;
+}
+
+.heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+h1 {
+    font-size: 30px;
+    text-align: center;
+}
+h2{
+    font-size: 22px;
+}
+
+.video_screen{
+    padding: 15px;
+    margin: 20px 0;
+    background-color: #093415;
+    color:#50C878;
+    border-radius: 10px;
+}
+.video_screen iframe{
+    display: block;
+    width: 100%;
+    aspect-ratio: 16/9;
+    border: none;
+    border-radius: 8px;
+}
+
+.youtube_link {
+    display: inline-block;
+    margin-top: 12px;
+    color:#A2EAA9;
+}
+
+.watch_list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
+}
+
+.video_card{
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #093415;
+}
+
+.watch_video{
+    width: 100%;
+    padding: 0;
+    border: none;
+    background: none;
+    color:#A2EAA9;
+    text-align: left;
+}
+.watch_video img{
+    display: block;
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.favorite_picker summary{
+    list-style: none;
+    font: inherit;
+    color: inherit;
+    text-align: center;
+}
+.favorite_picker summary::-webkit-details-marker{
+    display: none;
+}
+
+.video_title{
+    display: block;
+    margin: 10px 0;
+    line-height: 1.4;
+}
+
+.video_actions{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.video_actions button, .add_video button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 8px;
+    background-color: #50C878;
+    color: #172a01;
+}
+
+.favorite_picker summary {
+    list-style: none;
+    cursor:cell;
+    text-align: center;
+}
+.favorite_picker summary::-webkit-details-marker{
+    display: none;
+}
+.favorite_picker summary img{
+    display: block;
+    width: 90px;
+}
+.favorite_panel{
+    position: absolute;
+    right: 0;
+    bottom: 100%;
+    width: 200px;
+    overflow-y: auto;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    background-color: #172a01;
+    color:#50C878;
+}
+
+.first_favorites button{
+    
+}
