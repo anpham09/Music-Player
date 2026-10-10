@@ -14,6 +14,8 @@ const backwardButton = document.querySelector('.backward_button');
 const cassetteButton = document.querySelector(".cassette_button");
 const songList = document.querySelector(".song_list");
 
+const loopButton = document.querySelector(".loop_button");
+
 
 function moveStars(){
     const min = Number(timeBar.min) || 0;
@@ -46,7 +48,7 @@ music.addEventListener("pause", function(){
 const setMusic = function (i) {
     timeBar.value = 0;
     let song = songs[i];
-    currentMusic = i; //see how to make this random everytime
+    currentMusic = i;
     music.src = song.path;
 
     songName.innerHTML = song.name;
@@ -61,7 +63,6 @@ music.addEventListener("loadedmetadata", function(){
     songTime.innerHTML = formatTime(music.duration);
     moveStars();
 })
-setMusic(0);
 
 function formatTime(time){
     let min = Math.floor(time / 60);
@@ -134,4 +135,11 @@ for(let i = 0; i < songs.length; i++){
 
     songList.appendChild(button);
 }
-setMusic(0);
+
+loopButton.addEventListener("click", function() {
+    music.loop = !music.loop;
+    loopButton.classList.toggle("active", music.loop);
+    loopButton.setAttribute("aria-pressed", music.loop);
+});
+
+setMusic(Math.floor(Math.random() * songs.length));
