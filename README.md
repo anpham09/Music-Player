@@ -10,7 +10,7 @@ All of my favorite songs are not on a same music platform, and the platforms tha
 <!-- - Make the slider icon a star!! Done!!! -->
 <!-- - make the play/pause buttons full heart/empty heart icon, accordingly!! Done!!1 -->
 <!-- - Make the disk turning when playing! Done!!! -->
-- look at the image of mp3 player and add more fake buttons using div tags
+<!-- - look at the image of mp3 player and add more fake buttons using div tags -->
 - put an image of the casette on the side, when clicked on that image, its gonna show the list of available songs and is available to choose
 
 -!! has the button to put the current song on loop, when clicked, that song is repeated until that button is clicked again to unloop

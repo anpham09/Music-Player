@@ -11,6 +11,9 @@ const playButton = document.querySelector('.play_button');
 const forwardButton = document.querySelector('.forward_button');
 const backwardButton = document.querySelector('.backward_button');
 
+const cassetteButton = document.querySelector(".cassette_button");
+const songList = document.querySelector(".song_list");
+
 
 function moveStars(){
     const min = Number(timeBar.min) || 0;
@@ -101,3 +104,25 @@ backwardButton.addEventListener('click', function(){
     setMusic(currentMusic);
     playMusic();
 });
+
+cassetteButton.addEventListener("click", function(){
+    songList.hidden = !songList.hidden;
+    cassetteButton.setAttribute("aria-expanded", !songList.hidden);
+});
+
+for(let i = 0; i < songs.length; i++){
+    const button = document.createElement("button");
+    button.className = "song_choice";
+    button.textContent = songs[i].name + " - " + songs[i].artist;
+
+    button.addEventListener("click", function(){
+        setMusic(i);
+        playMusic();
+        songList.hidden = true;
+        cassetteButton.setAttribute("aria-expanded", "false");
+        cassetteButton.focus();
+    });
+
+    songList.appendChild(button);
+}
+setMusic(0);
