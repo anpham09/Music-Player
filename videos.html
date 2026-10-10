@@ -36,9 +36,9 @@
 
     <div class="videos_page">
         <div class="heading">
-            <span class="decorate_circles">+</span>
+            <span class="decorate_circles videos_top_circles">+</span>
             <h1>An's Videos</h1>
-            <span class="decorate_circles">+</span>
+            <span class="decorate_circles videos_top_circles">+</span>
         </div>
         <div class="video_screen" hidden>
             <h2 class="playing_title"></h2>
@@ -53,14 +53,19 @@
 
         <form action="" class="add_video">
             <label for="video_link">Something to watch later?</label>
+            
             <div class="input_row">
                 <input type="url" id="video_link"
                 placeholder="Paste a YouTube link" required>
                 <button type="submit">Add</button>
             </div>
         </form>
-        <p class="message" role="status"></p>
         
+        <p class="message" role="status"></p>
+        <div class="heading">
+            <span class="decorate_circles videos_bottom_circles">+</span>
+            <span class="decorate_circles videos_bottom_circles">+</span>
+        </div>
     </div>
 
     <div id="video_card">

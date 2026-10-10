@@ -1,8 +1,9 @@
 .videos_page{
     width: 700px;
     max-width: 100%;
+    min-height: 30%;
     box-sizing: border-box;
-    padding: 25px;
+    padding: 20px;
     border-radius: 20px;
     background-color: #ffd90054;
     box-shadow: 30px 40px 100px #ffd900e1;
@@ -96,9 +97,12 @@ h2{
 .video_actions button, .add_video button {
     padding: 8px 12px;
     border: none;
-    border-radius: 8px;
     background-color: #50C878;
     color: #172a01;
+}
+.add_video button{
+    width: 20%;
+
 }
 
 .favorite_picker summary {
@@ -127,5 +131,53 @@ h2{
 }
 
 .first_favorites button{
-    
+    display: block;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    background: none;
+    color:#50C878;
+    text-align: left;
+}
+.first_favorites button:hover{
+    background-color: #4b8450;
+}
+.favorite_list .video_card{
+    margin-top: 12px;
+}
+
+.add_video{
+    margin-top: 25px;
+}
+.add_video label{
+    display: block;
+    margin-bottom: 10px;
+}
+
+.input_row{
+    display: flex;
+    gap: 10px;
+}
+.input_row input{
+    min-width: 0;
+    flex: 1;
+    padding: 12px;
+    border: 1px solid #4b8450;
+    background-color:#A2EAA9;
+    color:#172a01;
+}
+
+.message{
+    line-height: 1.5;
+}
+button{
+    font-weight: bold;
+}
+
+.videos_bottom_circles{
+    margin-bottom: -16%;
+}
+.videos_top_circles{
+    margin-bottom: -5%;
 }

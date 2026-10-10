@@ -20,3 +20,5 @@ All of my favorite songs are not on a same music platform, and the platforms tha
 - I want the website to have 2 tabs: 1. Songs with this current one, 2. shows with my fav shows from YouTube using video frame
 - If possible, can I let it has mini screen like the way YouTube turns into small screen when I cliked the home button (it has thumbnails for each video, kinda like a gallery)
 
+- make a version for iphone 13 (for my personal use hehe)
+
