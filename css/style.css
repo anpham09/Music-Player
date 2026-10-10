@@ -8,6 +8,43 @@ body {
     background-color: #50C878;
     font-family:fantasy;
 }
+
+.tabs_container{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10011010;
+    width: 100%;
+}
+.tabs_container .tabs{
+    display: flex;
+    width: 100%;
+    /* gap: 15px; */
+    justify-content: space-around;
+    background-color: #ffd90054;
+    box-shadow: 30px 40px 100px #ffd900e1;
+}
+
+.tabs_container .tabs a {
+    padding: 10px 30px;
+    border: 1px solid #172a01;
+    border-radius: 0px;
+    background-color: #50C878;
+    color: #172a01;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+.tabs_container .tabs a.active{
+    background-color: #172a01;
+    color:#50C878;
+}
+
+.tabs a {
+    width: 50%;
+    text-align: center;
+}
+
 .player_heading{
     display: flex;
     justify-content: space-between;
@@ -36,6 +73,7 @@ h1{
     box-shadow: 30px 40px 100px #ffd900e1;
     padding: 30px;
     overflow: hidden;
+    margin-top: 50px;
 
 }
 
@@ -267,8 +305,8 @@ h1{
 
 .song_picker {
     position: fixed;
-    right: 5px;
-    top: 90%;
+    right: 2%;
+    top: 87%;
     transform: translateY(-50%);
     z-index: 5;
     text-align: center;
@@ -285,7 +323,7 @@ h1{
 }
 .cassette_button img {
     display: block;
-    width: 100px;
+    width: 150px;
     height: auto;
 
 }

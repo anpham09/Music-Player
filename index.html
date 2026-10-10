@@ -8,6 +8,12 @@
     <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
+    <div class="tabs_container">
+        <nav class="tabs">
+            <a href="./index.html" class="active">Songs</a>
+            <a href="./videos.html" aria-current="page">Videos</a>
+        </nav>
+    </div>
 
     <audio src="" id="audio"></audio>
 
@@ -42,7 +48,9 @@
             <label for="play_toggle" class="play_button"></label>
 
             <button class="button forward_button">→</button>
-            <button class="button loop_button" type="button" aria-label="Repeat song" aria-pressed="false"><img src="./icons/loop-removebg-preview.png" alt="" style="height: 20px;"></button>
+            <button class="button loop_button" type="button" aria-label="Repeat song" aria-pressed="false">
+                <img src="./icons/loop-removebg-preview.png" alt="" style="height: 20px;">
+            </button>
         </div>
         <div class="player_heading">
             <div class="decorate_circles bottom_circles">+</div>
@@ -57,6 +65,11 @@
 
         <div id="song_list" class="song_list" hidden></div>
     </div>
+
+            <!-- <iframe src="https://www.youtube.com/embed/dNimGCqZOI0?si=Sb4G3UU0DPi2_sjR" title="First" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen> -->
+
+            <!-- <iframe src="https://www.youtube.com/embed/C_eSHj7W54E?si=oOfuMxziZPu-ja_C" title="Second" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen> -->
+            
 
     <script src="./js/song.js"></script>
     <script src="./js/script.js"></script>
