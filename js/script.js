@@ -1,6 +1,6 @@
 const timeBar = document.querySelector(".time_bar");
 const slider = document.querySelector(".slider");
-
+const playToggle = document.querySelector(".play_toggle");
 const music = document.querySelector('#audio');
 const songName = document.querySelector('.music_name');
 const artist = document.querySelector('.artist');
@@ -28,20 +28,25 @@ window.addEventListener("resize", moveStars);
 moveStars();
 
 let currentMusic = 0;
-playButton.addEventListener('click', function() {
-    if (playButton.className.includes('pause')){
-        music.play();
+playToggle.addEventListener("change", function(){
+    if(playToggle.checked){
+        playMusic();
     } else {
         music.pause();
     }
-    playButton.classList.toggle('pause');
-    disk.classList.toggle('play');
 });
+
+music.addEventListener("play", function(){
+    playToggle.checked = true;
+});
+music.addEventListener("pause", function(){
+    playToggle.checked = false;
+})
 
 const setMusic = function (i) {
     timeBar.value = 0;
     let song = songs[i];
-    currentMusic = 1; //see how to make this random everytime
+    currentMusic = i; //see how to make this random everytime
     music.src = song.path;
 
     songName.innerHTML = song.name;
@@ -49,12 +54,13 @@ const setMusic = function (i) {
     disk.style.backgroundImage = `url('${song.cover}')`;
 
     currentTime.innerHTML =  '00:00';
-    setTimeout(() => {
-        timeBar.max = music.duration;
-        console.log(music.duration);
-        songTime.innerHTML = formatTime(music.duration);
-    }, 300);
+    
 };
+music.addEventListener("loadedmetadata", function(){
+    timeBar.max = music.duration;
+    songTime.innerHTML = formatTime(music.duration);
+    moveStars();
+})
 setMusic(0);
 
 function formatTime(time){
@@ -69,21 +75,24 @@ function formatTime(time){
     return `${min} : ${sec}`;
 }
 
-setInterval(function() {
+music.addEventListener("timeupdate", function() {
     timeBar.value = music.currentTime;
     currentTime.innerHTML = formatTime(music.currentTime);
-    if (Math.floor(music.currentTime) == Math.floor(timeBar.max)){
-        forwardButton.click();
-    }
-}, 500);
+    moveStars();
+});
+music.addEventListener("ended", function(){
+    forwardButton.click();
+});
 
 timeBar.addEventListener('change', ()=>{
     music.currentTime = timeBar.value;
 })
 
 function playMusic(){
-    playButton.classList.remove('pause');
-    disk.classList.add('play');
+    music.play().catch(function(error){
+        playToggle.checked = false;
+        console.log("Cannot play this song:", error);
+    });
 }
 
 forwardButton.addEventListener('click', function(){
@@ -93,7 +102,7 @@ forwardButton.addEventListener('click', function(){
         currentMusic++;
     }
     setMusic(currentMusic);
-    playButton.click();
+    playMusic();
 });
 backwardButton.addEventListener('click', function(){
     if(currentMusic <= 0){

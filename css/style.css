@@ -30,7 +30,7 @@ h1{
 
 .music_player{
     width: 350px;
-    height: 640px;
+    height: 660px;
     border-radius: 20px;
     background-color: #ffd90054;
     box-shadow: 30px 40px 100px #ffd900e1;
@@ -47,6 +47,8 @@ h1{
 .artist {
     font-size: 20px;
     font-weight: bold;
+    background-color: #A2EAA9;
+    padding-top: 5px;
 }
 
 .disk{
@@ -328,4 +330,9 @@ h1{
         right: 0;
         margin-bottom: 10px;
     }
+}
+.music_name {
+    background-color: #50C878;
+    padding-top: 10px;
+    margin-bottom: 0;
 }
