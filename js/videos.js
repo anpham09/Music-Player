@@ -15,11 +15,13 @@ const localPlayer = document.querySelector(".local_player");
 const localVideo = document.querySelector(".local_video");
 const pipButton = document.querySelector(".pip_button");
 const uploadMessage = document.querySelector(".upload_message");
+const miniButton = document.querySelector(".mini_button");
 
 let videos = [];
 let playingId = "";
 let videoDatabase = null;
 let cardUrls = [];
+let youtubeWindow = null;
 
 try {
     videos = JSON.parse(localStorage.getItem("ans_videos")) || [];
@@ -369,3 +371,38 @@ databaseRequest.onerror = function(){
     uploadMessage.textContent = "Can not open video storage in this browser.";
     addButton.disabled = false;
 }
+
+miniButton.addEventListener("click", async function(){
+    if(youtubeWindow && !youtubeWindow.closed){
+        youtubeWindow.close();
+        return;
+    }
+    try {
+        youtubeWindow = await window.documentPictureInPicture.requestWindow({
+            width: 480, height: 300
+        });
+        const miniWindow = youtubeWindow;
+
+        const style = miniWindow.document.createElement("link");
+        style.rel = "stylesheet";
+        style.href = new URL("./css/videos.css", document.baseURI).href;
+        miniWindow.document.head.appendChild(style);
+
+        miniWindow.document.body.className = "youtube_mini";
+        miniWindow.document.body.appendChild(videoFrame);
+
+        miniButton.textContent = "Back to page";
+        miniButton.setAttribute("aria-pressed", "true");
+
+        miniWindow.addEventListener("pagehide", function(){
+            videoScreen.appendChild(videoFrame);
+            miniButton.textContent = "Mini Screen";
+            miniButton.setAttribute("aria-pressed", "false");
+            youtubeWindow = null;
+        });
+
+    } catch(error){
+        message.textContent = "Can not open Mini Screen.";
+        console.log(error);
+    }
+});
